@@ -1,0 +1,17 @@
+node{
+    stage('CheckOutCode'){
+        git credentialsId: '4e2c9a78-75a7-4b16-8598-1ab7670933a3', url: 'https://github.com/kollipavan/nodejs-app-mss.git'
+    }
+    stage('Build'){
+    sh "npm install"
+}
+stage('ExecuteSonarQubeReport'){
+sh "npm run sonar"
+}
+stage('UploadArtifactintoNexuserver'){
+sh "npm publish"
+}
+stage('RunApplication'){
+sh "node app.js &"
+}
+}
